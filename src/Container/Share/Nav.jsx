@@ -1,28 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Nav = () => {
+
+    const[isActive, setActive] = useState(false)
    
     return (
         <div className="navbar bg-[#0A1724] text-white">
                 <div className="flex-1">
-                    <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                    <a className="btn btn-ghost normal-case text-xl">SSKarate</a>
                 </div>
                 <div className="flex-none">
                     <ul className=" flex px-1">
-                        <Link to='/'>
+                        <NavLink to='/'>
                         <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>Home</li>
-                        </Link>
-                        <Link to='/dashboard'>
+                        </NavLink>
+                        <NavLink to='/dashboard'>
                         <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>Instructor</li>
-                        </Link>
-                        <Link to='/dashboard'>
+                        </NavLink>
+                        <NavLink to='/dashboard'>
                         <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>All Class</li>
-                        </Link>
-                        <Link to='/dashboard'>
+                        </NavLink>
+                        <NavLink to='/dashboard'>
                         <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'>Dashboard</li>
-                        </Link>
+                        </NavLink>
                         <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Login</a></li>
                         <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Register</a></li>
                     </ul>
