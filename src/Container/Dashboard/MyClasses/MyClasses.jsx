@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import PageTitle from '../PageTitle';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import Loading from '../../Share/Loading';
 
 const MyClasses = () => {
     const [classes, setClasses] = useState([])
     const [axiosSecure] = useAxiosSecure()
+    const [loading, setLoading] = useState(true)
 
+    
     useEffect(() => {
         axiosSecure.get(`/classData?Email=user.email@defaultValue`)
             .then(data => {
                 setClasses(data.data);
                 console.log(data.data);
+                setLoading(false)
             })
     }, [])
+    if (loading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div>
             <PageTitle title={'my class'}></PageTitle>
+            
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}
@@ -30,7 +38,7 @@ const MyClasses = () => {
                         </tr>
                     </thead>
                     <tbody>
-
+                       
                         {
                             classes.map((item, index) => <tr item={item} key={index}>
                                 <th>{index + 1}</th>

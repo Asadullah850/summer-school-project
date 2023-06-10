@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { FaHome, FaHouseUser, FaThLarge } from "react-icons/fa";
 import { HiViewGridAdd } from "react-icons/hi";
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const Dashboard = () => {
 
     const instractor = useState(true)
+    const [classes, setClasses] = useState([])
+    const [axiosSecure] = useAxiosSecure()
+
+    useEffect(() => {
+        axiosSecure.get(`/classData`)
+            .then(data => {
+                setClasses(data.data);
+                console.log(data.data);
+            })
+    }, [])
     return (
         <div className=' bg-[#060b50] '>
             <div className="drawer lg:drawer-open">
