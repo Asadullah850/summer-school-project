@@ -9,12 +9,12 @@ import PageTitle from '../PageTitle';
 
 
 const ClassAdd = () => {
-    const inputRef = useRef(null);
+    const inputRef = useRef(0);
     const [seat, setSeat] = useState(0);
     const email = 'user.email@defaultValue';
     const [axiosSecure] = useAxiosSecure()
 
-    // console.log(inputRef.current);
+    console.log(inputRef.current);
     const handleKeyUp = (event) => {
         const inputValue = event.target.value;
         setSeat(inputValue)
@@ -71,7 +71,7 @@ const ClassAdd = () => {
                     required />
                 <br />
                 <label htmlFor="" className=' font-bold text-xl'> Class name*</label>
-                <input type="number" className='lg:w-[70%] border-2 p-2 rounded-md my-2 mx-10' placeholder="Price" {...register("Price*")} required />
+                <input type="number" className='lg:w-[70%] border-2 p-2 rounded-md my-2 mx-10' placeholder="Price" {...register("Price")} required />
                 <br />
                 <input type="text" className=' hidden'{...register("Status")} defaultValue={'Pending'} />
                 <input type="text" className=' hidden'{...register("roll")} defaultValue={'Instructor'} />

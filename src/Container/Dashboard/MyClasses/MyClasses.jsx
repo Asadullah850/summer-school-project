@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PageTitle from '../PageTitle';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
@@ -6,10 +6,13 @@ const MyClasses = () => {
     const [classes, setClasses] = useState([])
     const [axiosSecure] = useAxiosSecure()
 
-    axiosSecure.get('http://localhost:5000/addClass')
-    .then(data => {
-       console.log(data); 
-    })
+    useEffect(() => {
+        axiosSecure.get(`/classData?Email=user.email@defaultValue`)
+            .then(data => {
+                setClasses(data.data);
+                console.log(data.data);
+            })
+    }, [])
 
     return (
         <div>
@@ -20,19 +23,32 @@ const MyClasses = () => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>ClassName</th>
+                            <th>Status</th>
+                            <th>AvailableSites</th>
+                            <th>Add Site</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* row 1 */}
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Blue</td>
-                        </tr>
+
+                        {
+                            classes.map((item, index) => <tr item={item} key={index}>
+                                <th>{index + 1}</th>
+                                <td>{item.ClassName}</td>
+                                <td>{item.Status}</td>
+                                <td>{item.AvailableSites}</td>
+                                <td>
+                                    {
+                                        item.Status === "Pending" ? <><button disabled className="btn  btn-ghost btn-xs">Add Seat</button></> 
+                                        :
+                                         <><button className="btn text-white bg-[#060B50] hover:btn-primary btn-xs">Add Seat</button></>
+                                    }
+                                    
+                                    
+                                </td>
+                            </tr>)
+                        }
+
                     </tbody>
                 </table>
             </div>
