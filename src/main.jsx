@@ -12,6 +12,8 @@ import InstructorHome from "./Container/Dashboard/Instructor/InstructorHome";
 import Dashboard from "./Container/Dashboard/Dashboard";
 import ClassAdd from "./Container/Dashboard/ClassAdd/ClassAdd";
 import MyClasses from "./Container/Dashboard/MyClasses/MyClasses";
+import AuthProvider, { AuthContext } from "./Container/Routes/AuthProvider";
+import Register from "./Container/LoginReg/Register";
 
 
 const router = createBrowserRouter([
@@ -23,7 +25,11 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home></Home>
       },
-    ]
+    ],
+  },
+  {
+    path: '/register',
+    element: <Register></Register>
   },
   {
     path: "dashboard",
@@ -48,8 +54,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-  
+    <AuthProvider>
       <RouterProvider router={router} />
-  
+    </AuthProvider>
   </React.StrictMode>
 );
