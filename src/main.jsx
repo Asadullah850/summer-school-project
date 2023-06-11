@@ -27,6 +27,7 @@ import AllClass from "./Container/Dashboard/Admin/AllClass";
 import MyClass from "./Container/Dashboard/User/MyClass";
 import EnrollClass from "./Container/Dashboard/User/EnrollClass";
 import PaymentHistory from "./Container/Dashboard/User/PaymentHistory";
+import PrivetRoute from "./Container/Routes/PrivetRoute";
 
 const queryClient = new QueryClient()
 
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
     children: [
       {
         path: 'admin',

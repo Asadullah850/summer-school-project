@@ -2,29 +2,73 @@ import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Loading from '../../Share/Loading';
 import { FaTrash, FaUsersCog, FaUserGraduate, FaUserTie } from "react-icons/fa";
+import { GrUserManager } from "react-icons/gr";
 import PageTitle from '../PageTitle';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const AllUsers = () => {
-    const [loading, setLoading] = useState(true)
-    const [axiosSecure] = useAxiosSecure()
-    const [userData, setUserData] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [axiosSecure] = useAxiosSecure();
+    const [userData, setUserData] = useState([]);
+    const [roll, setRoll] = useState('Instructor')
+
+
     useEffect(() => {
         axiosSecure.get(`/allUsers`).then(res => {
             setUserData(res.data);
             setLoading(false)
-            console.log(res.data);
+            // console.log(res.data);
+
         })
     }, [])
+
+    const handelInstructor = (id) => {
+        event.preventDefault()
+
+        axiosSecure.patch(`/updateStatus/${id}`, { roll })
+            .then(res => {
+                console.log(res.data);
+
+                if (res.data.acknowledged) {
+                    toast.success("Update Instructor")
+                    window.location.reload();
+                    
+                }
+                // acknowledged
+            })
+            
+    }
+
+    const handelAdmin = (id, admin) => {
+        event.preventDefault()
+        const roll = admin
+        axiosSecure.patch(`/updateStatus/${id}`, { roll })
+            .then(res => {
+                console.log(res.data);
+
+                if (res.data.acknowledged) {
+                    toast.success("Update Admin")
+                    window.location.reload();
+                    
+                }
+                // acknowledged
+            })
+            
+    }
+
+    
     if (loading) {
         return <Loading></Loading>
     }
+    // /updateStatus
 
     return (
         <div>
+            
             <PageTitle title={'All user'}></PageTitle>
-
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
+            <div className=" w-full">
+                <table className="table w-full ">
                     {/* head */}
                     <thead >
                         <tr className=' uppercase text-white bg-[#060B50]'>
@@ -41,6 +85,7 @@ const AllUsers = () => {
                             <th className=''>Delete</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {
                             userData.map((user, index) => <tr key={index}>
@@ -56,15 +101,24 @@ const AllUsers = () => {
                                 <td>
                                     {
                                         user.roll === "admin" ?
-                                        <FaUserTie></FaUserTie>
+                                            <div className="">
+                                                <FaUserTie className='h-8 w-10'></FaUserTie>
+                                                <span>Admin</span>
+                                            </div>
+
                                             :
                                             user.roll === "Instructor" ?
-                                            <button className="btn btn-sm btn-outline">
-                                                <FaUserGraduate></FaUserGraduate>
-                                            </button>
-                                                
+                                                <div className="">
+                                                    <FaUserGraduate className='h-8 w-10'></FaUserGraduate>
+                                                    <span className=' text-xs'>Instructor</span>
+                                                </div>
+
                                                 :
-                                                user.roll
+
+                                                <div className="">
+                                                    <GrUserManager className='h-8 w-10'></GrUserManager>
+                                                    <span className=' text-xs'>Student</span>
+                                                </div>
                                     }
                                 </td>
                                 <td>
@@ -73,12 +127,16 @@ const AllUsers = () => {
                                             <>
                                             </>
                                             :
+
                                             <>
-                                                <button onClick={() => handelMakeAdmin(user._id)} className="btn btn-sm bg-[#c07c16] hover:bg-[#513408] text-white text-xl">
-                                                    <FaUserTie></FaUserTie>
+
+
+                                                <button onClick={() => handelInstructor(user._id)} className="btn btn-sm bg-[#c07c16] hover:bg-[#513408] text-white text-xl">
+                                                    <FaUserGraduate></FaUserGraduate>
                                                 </button>
-                                                <button onClick={() => handelMakeAdmin(user._id)} className="btn btn-sm bg-[#c07c16] hover:bg-[#513408] text-white text-xl">
-                                                    <FaUsersCog></FaUsersCog>
+
+                                                <button onClick={() => handelAdmin(user._id, 'admin')} className="btn btn-sm bg-[#c07c16] hover:bg-[#513408] text-white text-sm">
+                                                    admin
                                                 </button>
                                             </>
                                     }
@@ -91,11 +149,13 @@ const AllUsers = () => {
                                     {/* To Do Delete button not work */}
                                     <button className="btn btn-ghost bg-red-600"><FaTrash className=' text-white'></FaTrash></button>
                                 </td>
-                            </tr>)
+                            </tr>
+                            )
                         }
                         {/* row 1 */}
 
                     </tbody>
+
                 </table>
             </div>
         </div>

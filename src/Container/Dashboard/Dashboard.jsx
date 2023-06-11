@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { FaHome, FaHouseUser, FaUserEdit, FaUserTie } from "react-icons/fa";
 import useAuth from '../Hooks/useAuth';
+import { ToastContainer } from 'react-toastify';
 
 const Dashboard = () => {
     const { user, loading } = useAuth();
@@ -15,20 +16,21 @@ const Dashboard = () => {
             console.log(res.data);
         })
     }, [])
-    if (loading) {
-        return <p>loading................</p>
-    }
+
     const userStatus = roll.roll;
+
+
     // console.log(userStatus);
     // console.log(isAdmin);
 
     return (
         <div className=' bg-[#060b50] '>
+            <ToastContainer></ToastContainer>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-center justify-center">
                     {/* Page content here */}
-                    <div className='h-auto lg:h-[calc(100vh-32px)] bg-white w-[98%] mx-auto mt-4 rounded-2xl '>
+                    <div className='h-screen overflow-y-scroll lg:h-[calc(100vh-32px)] bg-white w-[98%] mx-auto mt-4 rounded-2xl '>
                         <Outlet ></Outlet>
                     </div>
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open Menu</label>
