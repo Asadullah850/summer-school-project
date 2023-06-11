@@ -1,55 +1,99 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../Routes/AuthProvider';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
+import Loading from './Loading';
+import useAdmin from '../Dashboard/Admin/useAdmin';
 
 const Nav = () => {
+    const { user, logOut } = useContext(AuthContext)
+    const [isAdmin] = useAdmin()
+    console.log(isAdmin);
+    const [loading, setLoading] = useState(true)
+    const [axiosSecure] = useAxiosSecure()
+    const [userData, setUserData] = useState([])
 
-    const[isActive, setActive] = useState(false)
-   
+    const handelLogOut = () => {
+        logOut()
+        .then(() => {
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
+
     return (
         <div className="navbar bg-[#0A1724] text-white">
-                <div className="flex-1">
-                    <a className="btn btn-ghost normal-case text-xl">SSKarate</a>
-                </div>
-                <div className="flex-none">
-                    <ul className=" flex px-1">
-                        <NavLink to='/'>
+            <div className="flex-1">
+                <a className="btn btn-ghost normal-case text-xl">SSDance</a>
+            </div>
+            <div className="flex-none">
+                <ul className=" flex px-1">
+                    <NavLink to='/'>
                         <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>Home</li>
-                        </NavLink>
-                        <NavLink to='/dashboard'>
+                    </NavLink>
+                    <NavLink to='/dashboard'>
                         <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>Instructor</li>
-                        </NavLink>
-                        <NavLink to='/dashboard'>
+                    </NavLink>
+                    <NavLink to='/dashboard'>
                         <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>All Class</li>
-                        </NavLink>
-                        <NavLink to='/dashboard'>
-                        <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'>Dashboard</li>
-                        </NavLink>
-                        <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Login</a></li>
-                        <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Register</a></li>
-                    </ul>
+                    </NavLink>
 
-                </div>
-                <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className=" text-center rounded-full">
-                            <FaUserCircle className='text-4xl '></FaUserCircle>
-                        </div>
-                    </label>
-                    
-                    <ul tabIndex={0} className="menu menu-sm hover:text-black hover:font-bold dropdown-content mt-2 p-2 shadow rounded-box w-32">
-                        <li>
-                            <a className="justify-between bg-[#A82321] m-1 rounded-md">
-                                Profile
-                                <span className=" badge">New</span>
-                            </a>
-                        </li>
-                        <li className='bg-[#A82321] m-1 rounded-md hover:bg-white'><a>Settings</a></li>
-                        <li className='bg-[#A82321] m-1 rounded-md hover:bg-white'><a>Logout</a></li>
-                    </ul>
-                </div>
+
+                    {
+                        user ?
+                            <>
+                                <NavLink to={isAdmin ? '/dashboard/admin' : '/dashboard/userDashboard'}>
+                                    <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'>Dashboard</li>
+                                </NavLink>
+
+                                <li onClick={handelLogOut} className='bg-[#A82321] py-2 mx-1 rounded-md  border-none text-white px-4 cursor-pointer hover:bg-[#a5100e]'>Logout</li>
+                            </>
+                            :
+                            <>
+                                <NavLink to='/login'>
+                                <li className='bg-[#A82321] mx-1 cursor-pointer rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Login</a></li>
+                                </NavLink>
+                                <Link to='/register'>
+                                    <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Register</a></li>
+                                </Link>
+                            </>
+                    }
+
+                </ul>
 
             </div>
+            <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                    <div className=" text-center rounded-full">
+                        {
+                            user ? 
+                            <img src={user.photoURL} alt="" srcset="" /> :
+                            <FaUserCircle className='text-4xl '></FaUserCircle>
+                        }
+                    </div>
+                </label>
+
+                <ul tabIndex={0} className="group menu menu-sm hover:text-white hover:font-bold dropdown-content mt-2 p-2 shadow rounded-box ">
+
+                    {
+                        user ?
+
+                            <li className='text-black group-hover:display'>
+                                {user?.displayName || user?.email}
+                            </li>
+
+                            :
+                            <>
+                            </>
+                    }
+
+
+                </ul>
+            </div>
+
+        </div>
     );
 };
 

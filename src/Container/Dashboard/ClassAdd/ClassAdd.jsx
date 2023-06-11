@@ -33,7 +33,7 @@ const ClassAdd = () => {
             })
             return
         }
-        axiosSecure.post('addClass', data)
+        axiosSecure.post('/addClass', data)
             .then(data => {
                 if (data.data.acknowledged) {
                     toast.success("Class Add it's Pending")

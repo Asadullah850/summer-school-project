@@ -29,7 +29,7 @@ const MyClasses = () => {
                 <table className="table table-zebra">
                     {/* head */}
                     <thead>
-                        <tr>
+                        <tr className='bg-[#060B50] text-white uppercase'> 
                             <th>#</th>
                             <th>ClassName</th>
                             <th>Status</th>
