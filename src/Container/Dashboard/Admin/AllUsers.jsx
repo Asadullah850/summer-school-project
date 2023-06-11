@@ -56,6 +56,18 @@ const AllUsers = () => {
             })
             
     }
+    const handelDelete = (id) => {
+        console.log(id);
+        axiosSecure.delete(`/userDelete/${id}`)
+            .then(res => {
+                console.log(res.data);
+                toast.success("Delete")
+                window.location.reload();
+                // if (res.data.acknowledged) {
+                // }
+            })
+            
+    }
 
     
     if (loading) {
@@ -146,8 +158,7 @@ const AllUsers = () => {
                                     <button className="btn btn-sm "> Feedback</button>
                                 </td>
                                 <td>
-                                    {/* To Do Delete button not work */}
-                                    <button className="btn btn-ghost bg-red-600"><FaTrash className=' text-white'></FaTrash></button>
+                                    <button onClick={()=>handelDelete(user._id)} className="btn btn-ghost bg-red-600"><FaTrash className=' text-white'></FaTrash></button>
                                 </td>
                             </tr>
                             )

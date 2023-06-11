@@ -108,8 +108,8 @@ const Register = () => {
                     <input className='w-[70%] p-2 rounded-lg mb-2' type="email" placeholder="Email*" {...register("email", { required: true })} />
                     {errors.email?.type === 'required' && <p className='text-white p-0' role="alert">Email is required</p>}
                     <br />
-                    <input className='w-[70%] p-2 rounded-lg mb-2' type="url" placeholder="Image Url*" {...register("url", { required: true })} />
-                    {errors.url?.type === 'required' && <p className='text-white p-0' role="alert">Image is required</p>}
+                    <input className='w-[70%] p-2 rounded-lg mb-2' type="url" placeholder="Image Url*" {...register("url")} />
+                    
                     <select className='w-[70%] p-2 rounded-lg mb-2 hidden' placeholder="Email*" label="Select One" {...register("roll", { required: true })}>
                         <option value="User">User</option>
                     </select>
