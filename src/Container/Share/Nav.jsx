@@ -3,16 +3,23 @@ import { FaUserCircle } from "react-icons/fa";
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../Routes/AuthProvider';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
-import Loading from './Loading';
-import useAdmin from '../Dashboard/Admin/useAdmin';
 
 const Nav = () => {
-    const { user, logOut } = useContext(AuthContext)
-    const [isAdmin] = useAdmin()
-    console.log(isAdmin);
-    const [loading, setLoading] = useState(true)
+    const { user, logOut, loading } = useContext(AuthContext)
     const [axiosSecure] = useAxiosSecure()
-    const [userData, setUserData] = useState([])
+    const [roll, setRoll] = useState([]);
+
+    useEffect(() => {
+        axiosSecure.get(`/users/admin/${user?.email}`).then(res => {
+            setRoll(res.data);
+            console.log(res.data);
+        })
+    }, [])
+
+    // if (loading) {
+    //     return 
+    // }
+    const userStatus = roll.roll
 
     const handelLogOut = () => {
         logOut()
@@ -44,7 +51,7 @@ const Nav = () => {
                     {
                         user ?
                             <>
-                                <NavLink to={isAdmin ? '/dashboard/admin' : '/dashboard/userDashboard'}>
+                                <NavLink to={ userStatus == 'admin' ? '/dashboard/admin' : userStatus == 'Instructor' ? '/dashboard/instructor' : '/dashboard/studentClasses'}>
                                     <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'>Dashboard</li>
                                 </NavLink>
 

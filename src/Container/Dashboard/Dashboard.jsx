@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
-import { FaHome, FaHouseUser, FaThLarge, FaUserTie } from "react-icons/fa";
+import { FaHome, FaHouseUser, FaUserEdit, FaUserTie } from "react-icons/fa";
 import useAuth from '../Hooks/useAuth';
 
 const Dashboard = () => {
-    const { user,  loading} = useAuth();
+    const { user, loading } = useAuth();
     const [axiosSecure] = useAxiosSecure()
     const [roll, setRoll] = useState([]);
-    const instractor = useState(true)
-    
+
     useEffect(() => {
-        
         axiosSecure.get(`/users/admin/${user?.email}`).then(res => {
             setRoll(res.data);
             console.log(res.data);
@@ -31,85 +29,95 @@ const Dashboard = () => {
                 <div className="drawer-content flex flex-col items-center justify-center">
                     {/* Page content here */}
                     <div className='h-auto lg:h-[calc(100vh-32px)] bg-white w-[98%] mx-auto mt-4 rounded-2xl '>
-                        <Outlet user={instractor}></Outlet>
+                        <Outlet ></Outlet>
                     </div>
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open Menu</label>
                 </div>
-                
+
                 <div className="drawer-side fixed h-auto lg:h-[calc(100vh-32px)] mt-8 ">
-                {
-                    userStatus == 'admin' ? 
-                        <>
-                            <div className="avatar">
-                                <div className=' text-9xl rounded-full bg-white'>
-                                    <FaUserTie className='p-4'></FaUserTie>
+                    {
+                        userStatus == 'admin' ?
+                            <>
+                                <div className="avatar">
+                                    <div className=' text-9xl rounded-full bg-white'>
+                                        <FaUserTie className='p-4'></FaUserTie>
+                                    </div>
                                 </div>
-                            </div>
-                            <p  className=' text-xl text-white'>Admin</p>
-                            <p  className='px-2 text-xs text-white'>{user.email}</p>
-                        </>
-                        :  userStatus == 'Instructor' ?
-                        <>
-                            <div className="avatar">
-                                <div className=' text-9xl rounded-full bg-white'>
-                                    <FaUserTie className='p-4'></FaUserTie>
-                                </div>
-                            </div>
-                            <p  className=' text-xl text-white'>Instructor</p>
-                            <p  className='px-2 text-xs text-white'>{user.email}</p>
-                        </> 
-                        : 
-                         <>
-                         <div className="avatar">
-                             <div className=' text-9xl rounded-full bg-white'>
-                                 <FaThLarge className='p-4'></FaThLarge>
-                             </div>
-                         </div>
-                         <p  className=' text-xl text-white'>Student</p>
-                         <p  className='px-2 text-xs text-white'>{user.email}</p>
-                     </> 
-                }
+                                <p className=' text-xl text-white'>Admin</p>
+                                <p className='px-2 text-xs text-white'>{roll.displayName}</p>
+                            </>
+                            : userStatus == 'Instructor' ?
+                                <>
+                                    <div className="avatar">
+                                        <div className=' text-9xl rounded-full bg-white'>
+                                            <FaUserTie className='p-4'></FaUserTie>
+                                        </div>
+                                    </div>
+                                    <p className=' text-xl text-white'>Instructor</p>
+                                    <p className='px-2 text-xs text-white'>{roll.displayName}</p>
+                                </>
+                                :
+                                <>
+                                    <div className="avatar">
+                                        <div className=' text-9xl rounded-full bg-white'>
+                                            <FaUserEdit className='p-4'></FaUserEdit>
+                                        </div>
+                                    </div>
+                                    <p className=' text-xl text-white'>Student</p>
+                                    <p className='px-2 text-xs text-white'>Name: {roll.displayName}</p>
+                                </>
+                    }
 
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu py-4 pl-4 pr-0 h-full bg-[#060b50]  text-base-content">
                         {/* Sidebar content here */}
                         {
                             userStatus == 'admin' ?
-                            <>
-                            <NavLink to={'/dashboard/admin'}>
-                            <li className='p-2 border-2  border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>Home</li>
-                        </NavLink>
-                        <NavLink to={'/dashboard/allUsers'}>
-                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>All Users</li>
-                        </NavLink>
-                        <NavLink to={'/dashboard/allClasses'}>
-                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>All Classes</li>
-                        </NavLink>
-                        {/* ************************************************************************ */}
-                        <div className=" divider bg-slate-400 h-1"></div>
-                        <NavLink to={'/'}>
-                            <li className='p-2 w-full  font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white'><a><FaHome className='text-4xl mx-5'></FaHome></a></li>
-                        </NavLink>
-                            </>
-                            :
-                            <>
-                            <NavLink to={'/dashboard/instructor'}>
-                            <li className='p-2 border-2  border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>Home</li>
-                        </NavLink>
-                        <NavLink to={'/dashboard/classAdd'}>
-                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>Add Classes</li>
-                        </NavLink>
-                        <NavLink to={'/dashboard/myclasses'}>
-                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>My Classes</li>
-                        </NavLink>
-                        {/* ************************************************************************ */}
-                        <div className=" divider bg-slate-400 h-1"></div>
-                        <NavLink to={'/'}>
-                            <li className='p-2 w-full  font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white'><a><FaHome className='text-4xl mx-5'></FaHome></a></li>
-                        </NavLink>
-                            </>
+                                <>
+                                    <NavLink to={'/dashboard/admin'}>
+                                        <li className='p-2 border-2  border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>Home</li>
+                                    </NavLink>
+                                    <NavLink to={'/dashboard/allUsers'}>
+                                        <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>All Users</li>
+                                    </NavLink>
+                                    <NavLink to={'/dashboard/allClasses'}>
+                                        <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>All Classes</li>
+                                    </NavLink>
+
+                                </>
+                                : userStatus == 'Instructor' ?
+                                    <>
+                                        <NavLink to={'/dashboard/instructor'}>
+                                            <li className='p-2 border-2  border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>Home</li>
+                                        </NavLink>
+                                        <NavLink to={'/dashboard/classAdd'}>
+                                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>Add Classes</li>
+                                        </NavLink>
+                                        <NavLink to={'/dashboard/myclasses'}>
+                                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>My Classes</li>
+                                        </NavLink>
+                                    </>
+                                    :
+                                    <>
+                                        <NavLink to={'/dashboard/studentClasses'}>
+                                            <li className='p-2 border-2  border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>My Class</li>
+                                        </NavLink>
+                                        <NavLink to={'/dashboard/enroll'}>
+                                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>Enroll Class</li>
+                                        </NavLink>
+                                        <NavLink to={'/dashboard/payment'}>
+                                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-sm'>Payment History</li>
+                                        </NavLink>
+                                    </>
+                                   
                         }
+                        {/* ************************************************************************ */}
+                        <div className=" divider bg-slate-400 h-1"></div>
+                        <NavLink to={'/'}>
+                            <li className='p-2 w-full  font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white'><a><FaHome className='text-4xl mx-5'></FaHome></a></li>
+                        </NavLink>
                     </ul>
+
                 </div>
             </div>
 

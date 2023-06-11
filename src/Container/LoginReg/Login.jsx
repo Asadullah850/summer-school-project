@@ -85,7 +85,7 @@ const Login = () => {
 
                     <Link className=' text-black' to='/register'><p className=' underline'>New account</p></Link>
                     <br />
-                    <input className='w-[40%] btn bg-[#95289D] text-white hover:bg-[#720d79]' type="submit" />
+                    <input className='w-[40%] btn bg-[#95289D] text-white hover:bg-[#720d79]' type="submit" value={'Login'} />
                 </form>
                 <GoogleButton></GoogleButton >
             </div>

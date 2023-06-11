@@ -150,7 +150,7 @@ const Register = () => {
                     <p className='text-white p-0'>{confirmedPassword}</p>
                     <Link className=' text-black' to='/login'><p className=' underline'>All ready an account</p></Link>
                     <br />
-                    <input className='w-[50%] btn bg-[#95289D] text-white hover:bg-[#720d79]' type="submit" />
+                    <input className='w-[50%] btn bg-[#95289D] text-white hover:bg-[#720d79]' type="submit" value={'Register'} />
                 </form>
             <GoogleButton></GoogleButton>
             </div>

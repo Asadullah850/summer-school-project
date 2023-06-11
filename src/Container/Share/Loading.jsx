@@ -5,7 +5,7 @@ import groovyWalkAnimation from "../../assets/sweetloading.json";
 const Loading = () => {
     return (
         <div >
-            <Lottie className='h-[50vh]' animationData={groovyWalkAnimation} loop={true} />;
+            <Lottie className='h-[50vh]' animationData={groovyWalkAnimation} loop={true} />
         </div>
     );
 };

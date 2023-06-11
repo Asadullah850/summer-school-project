@@ -16,7 +16,7 @@ import AuthProvider, { AuthContext } from "./Container/Routes/AuthProvider";
 import Register from "./Container/LoginReg/Register";
 import AdminHome from "./Container/Dashboard/Admin/AdminHome";
 import AllUsers from "./Container/Dashboard/Admin/AllUsers";
-import UserHome from "./Container/Dashboard/User/UserHome";
+
 
 import {
   QueryClient,
@@ -24,6 +24,9 @@ import {
 } from '@tanstack/react-query'
 import Login from "./Container/LoginReg/Login";
 import AllClass from "./Container/Dashboard/Admin/AllClass";
+import MyClass from "./Container/Dashboard/User/MyClass";
+import EnrollClass from "./Container/Dashboard/User/EnrollClass";
+import PaymentHistory from "./Container/Dashboard/User/PaymentHistory";
 
 const queryClient = new QueryClient()
 
@@ -68,17 +71,26 @@ const router = createBrowserRouter([
         element: <InstructorHome></InstructorHome>
       },
       {
+        path: 'myclasses',
+        element: <MyClasses></MyClasses>
+      },
+      {
         path: 'classAdd',
         element: <ClassAdd></ClassAdd>
       },
       {
-        path: 'userDashboard',
-        element: <UserHome></UserHome>
+        path: 'studentClasses',
+        element: <MyClass></MyClass>
       },
       {
-        path: 'myclasses',
-        element: <MyClasses></MyClasses>
+        path: 'enroll',
+        element: <EnrollClass></EnrollClass>
       },
+      {
+        path: 'payment',
+        element: <PaymentHistory></PaymentHistory>
+      },
+     
     ]
   },
 ]);
