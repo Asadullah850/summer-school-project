@@ -3,6 +3,7 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Loading from '../../Share/Loading';
 import { FaTrash, FaUsersCog, FaUserGraduate, FaUserTie } from "react-icons/fa";
 import PageTitle from '../PageTitle';
+import { toast } from 'react-toastify';
 
 
 const AllClass = () => {
@@ -13,16 +14,32 @@ const AllClass = () => {
 
     useEffect(() => {
         axiosSecure.get(`/adminClassData`)
-        .then(res => {
-            setClassesData(res.data);
-            console.log(res.data);
-            setLoading(false)
-        })
+            .then(res => {
+                setClassesData(res.data);
+                // console.log(res.data);
+                setLoading(false)
+            })
     }, [])
+
+    const handelClassStatusUpdate = (id) => {
+        const Status = 'Confirm'
+        axiosSecure.patch(`/classStatusUpdate/${id}`,{ Status })
+        .then(res => {
+            window.location.reload()
+            // console.log(id);
+            // console.log(res.data);
+            if (res.data.acknowledged) {
+                toast.success('Class Active')
+            }
+
+        })
+        // console.log(roll);
+    }
+
     if (loading) {
         return <Loading></Loading>
     }
-    console.log(classesData);
+    // console.log(classesData);
     return (
         <div>
             <PageTitle title={'All classes'}></PageTitle>
@@ -66,8 +83,14 @@ const AllClass = () => {
                                 <td >
                                     {classData.AvailableSites}
                                 </td>
-                                <td className={classData.Status === 'Pending' ? ` text-red-800`: ``}>
-                                    <button className={classData.Status === 'Pending' ? ` text-red-600 btn btn-sm font-bold`: `btn-sm`}>{classData.Status}</button>
+                                <td>
+                                    {
+                                        classData.Status === 'Pending' ?
+                                            <button onClick={()=>handelClassStatusUpdate(classData._id)} className={classData.Status === 'Pending' ? ` text-red-600 btn btn-sm font-bold` : `btn-sm`}>{classData.Status}</button>
+                                            :
+                                            <button className='btn btn-sm font-bold'>{classData.Status}</button>
+                                    }
+
                                 </td>
                                 <td>
                                     <button className='btn btn-sm'>feedback</button>
