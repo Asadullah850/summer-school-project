@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify'
 function App() {
 
   return (
-    // indian Africo-American ceremonial social classic dance fog-dance, break dance, Bangladeshi National Dance, hip hop dance, swing Dance
+    // indian classic Africo-American ceremonial social classic dance fog-dance, break dance, Bangladeshi National Dance, hip hop dance, swing Dance
     <>
     <ToastContainer />
       <Nav></Nav>
