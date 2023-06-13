@@ -26,8 +26,9 @@ const Feedback = () => {
         const img = singleClass.ClassImageUrl;
         const className = singleClass.ClassName;
         const Status = singleClass.Status;
+        const email = singleClass.Email;
         const feedbackData = {
-            feedback, img, className, Status
+            feedback, img, className, Status, email
         }
         // console.log(feedbackData);
         axiosSecure.post(`feedback`, feedbackData)

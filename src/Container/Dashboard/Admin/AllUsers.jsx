@@ -126,16 +126,13 @@ const AllUsers = () => {
                                                 <FaUserTie className='h-8 w-10'></FaUserTie>
                                                 <span>Admin</span>
                                             </div>
-
                                             :
                                             user.roll === "Instructor" ?
                                                 <div className="">
                                                     <FaUserGraduate className='h-8 w-10'></FaUserGraduate>
                                                     <span className=' text-xs'>Instructor</span>
                                                 </div>
-
                                                 :
-
                                                 <div className="">
                                                     <GrUserManager className='h-8 w-10'></GrUserManager>
                                                     <span className=' text-xs'>Student</span>
@@ -148,10 +145,7 @@ const AllUsers = () => {
                                             <>
                                             </>
                                             :
-
                                             <>
-
-
                                                 <button onClick={() => handelInstructor(user._id)} className="btn btn-sm bg-[#c07c16] hover:bg-[#513408] text-white text-xl">
                                                     <FaUserGraduate></FaUserGraduate>
                                                 </button>
@@ -163,7 +157,6 @@ const AllUsers = () => {
                                     }
                                 </td>
                                 <td>
-                                    {/* To Do feed back button not work */}
                                     <Link to={`/dashboard/userFeedback/${user._id}`}>
                                         <button className="btn btn-sm "> Feedback</button>
                                     </Link>
@@ -174,8 +167,6 @@ const AllUsers = () => {
                             </tr>
                             )
                         }
-                        {/* row 1 */}
-
                     </tbody>
 
                 </table>

@@ -35,22 +35,6 @@ const AllClass = () => {
         return <Loading></Loading>
     }
 
-
-    const handelFeedback = (id) => {
-        console.log(id);
-        axiosSecure.patch(`/classStatusUpdate/${id}`, { Status })
-            .then(res => {
-                window.location.reload()
-                // console.log(id);
-                // console.log(res.data);
-                if (res.data.acknowledged) {
-                    toast.warning('Class Delete')
-                }
-
-            })
-
-    }
-    // console.log(classesData);
     return (
         <div>
             <PageTitle title={'All classes'}></PageTitle>
@@ -120,7 +104,7 @@ const AllClass = () => {
                                 </td>
                                 <td>
                                     <Link to={`/dashboard/feedback/${classData._id}`}>
-                                        <button onClick={() => handelFeedback(classData._id)} className='btn btn-sm'>feedback</button>
+                                        <button  className='btn btn-sm'>feedback</button>
                                     </Link>
                                 </td>
 
