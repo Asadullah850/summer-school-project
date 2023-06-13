@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PageTitle from '../PageTitle';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../Hooks/useAuth';
+import Loading from '../../Share/Loading';
 
 const FeedbackPage = () => {
     const { user } = useAuth();
@@ -11,12 +11,7 @@ const FeedbackPage = () => {
     const [feedbackClasses, setFeedbackClasses] = useState([]);
     const [loading, setLoading] = useState(true);
 
-
-    // const { data: classFeedback = [], isLoading, refetch } = useQuery(['classFeedback'], async () => {
-    //     const res = await axiosSecure.get(`/classFeedback/${user.email}`)
-    //     return res.data
-    // })
-    console.log(user.email);
+    // console.log(user.email);
     useEffect(() => {
         // console.log('painai');
         axiosSecure.get(`/classFeedback/${user.email}`).then(res => {
@@ -25,6 +20,18 @@ const FeedbackPage = () => {
             setLoading(false)
         })
     }, [])
+    useEffect(() => {
+        // console.log('painai');
+        axiosSecure.get(`/userFeedback/${user.email}`).then(res => {
+            console.log(res.data);
+            setFeedbackUser(res.data)
+            setLoading(false)
+        })
+    }, [])
+
+    if (loading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div>
@@ -52,7 +59,15 @@ const FeedbackPage = () => {
                 </div>
                 <div className="lg:w-1/2">
                     <h1 className=' font-semibold font-serif text-lg'>Personal Feedback</h1>
-                    <p>Total Feedback : </p>
+                    <p>Total Feedback : {feedbackUser.length}</p>
+                    {
+                        feedbackUser.map((item, index)=> <div key={index}>
+                            <div className="flex border p-2 shadow-lg justify-between">
+                                <p>No: {index + 1}</p>
+                                <p className=' overflow-y-scroll h-20 border-t-2 border-b-2 rounded-md'>{item.feedback}</p>
+                            </div>
+                        </div>)
+                    }
                 </div>
             </div>
         </div>
