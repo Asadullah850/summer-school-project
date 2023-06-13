@@ -6,22 +6,27 @@ import { GrUserManager } from "react-icons/gr";
 import PageTitle from '../PageTitle';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const AllUsers = () => {
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [axiosSecure] = useAxiosSecure();
-    const [userData, setUserData] = useState([]);
+    // const [userData, setUserData] = useState([]);
     const [roll, setRoll] = useState('Instructor')
 
-// To do use tanstack query
-    useEffect(() => {
-        axiosSecure.get(`/allUsers`).then(res => {
-            setUserData(res.data);
-            setLoading(false)
-            // console.log(res.data);
+// To do use tanstack query for user load
+    // useEffect(() => {
+    //     axiosSecure.get(`/allUsers`).then(res => {
+    //         setUserData(res.data);
+    //         setLoading(false)
+    //         // console.log(res.data);
 
-        })
-    }, [])
+    //     })
+    // }, [])
+    const { data: userData = [], isLoading, refetch } = useQuery(['userData'], async () => {
+        const res = await axiosSecure.get(`/allUsers`)
+        return res.data
+    })
 
     const handelInstructor = (id) => {
         event.preventDefault()
@@ -29,10 +34,9 @@ const AllUsers = () => {
         axiosSecure.patch(`/updateStatus/${id}`, { roll })
             .then(res => {
                 console.log(res.data);
-
                 if (res.data.acknowledged) {
                     toast.success("Update Instructor")
-                    window.location.reload();
+                    refetch()
                     
                 }
                 // acknowledged
@@ -49,7 +53,7 @@ const AllUsers = () => {
 
                 if (res.data.acknowledged) {
                     toast.success("Update Admin")
-                    window.location.reload();
+                    refetch()
                     
                 }
                 // acknowledged
@@ -57,22 +61,40 @@ const AllUsers = () => {
             
     }
     const handelDelete = (id) => {
-        console.log(id);
-        axiosSecure.delete(`/userDelete/${id}`)
-            .then(res => {
-                console.log(res.data);
-                toast.success("Delete")
-                window.location.reload();
-                // if (res.data.acknowledged) {
-                // }
-            })
+        // console.log(id);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            // if (res.data.acknowledged) {
+                if (result.isConfirmed) {
+                    axiosSecure.delete(`/userDelete/${id}`)
+                    .then(res => {
+                        // console.log(res.data);
+                        if (res.data.acknowledged) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                              )
+                              refetch()
+                        }
+                    })
+                    
+                  }
+          })
+       
             
     }
-
-    
-    if (loading) {
+    if (isLoading) {
         return <Loading></Loading>
     }
+
     // /updateStatus
 
     return (
