@@ -3,6 +3,7 @@ import PageTitle from '../PageTitle';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Loading from '../../Share/Loading';
 import useAuth from '../../Hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 const MyClasses = () => {
     const { user } = useAuth()
@@ -15,7 +16,7 @@ const MyClasses = () => {
         axiosSecure.get(`/instructorClassData?Email=${user.email}`)
             .then(data => {
                 setClasses(data.data);
-                console.log(data.data);
+                // console.log(data.data);
                 setLoading(false)
             })
     }, [])
@@ -35,8 +36,9 @@ const MyClasses = () => {
                             <th>#</th>
                             <th>ClassName</th>
                             <th>Status</th>
-                            <th>AvailableSites</th>
-                            <th>Add Site</th>
+                            <th className=' text-[10px]'>Enrolled Students</th>
+                            <th>Available Seat</th>
+                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,13 +47,18 @@ const MyClasses = () => {
                             classes.map((item, index) => <tr item={item} key={index}>
                                 <th>{index + 1}</th>
                                 <td>{item.ClassName}</td>
-                                <td>{item.Status}</td>
-                                <td>{item.AvailableSites}</td>
+                                <td className={item.Status == 'Pending' ? `text-red-600 font-bold` : 'font-serif'}>{item.Status}</td>
+                                <td>0</td>
+                                <td>{item.AvailableSeats}</td>
                                 <td>
                                     {
-                                        item.Status === "Pending" ? <><button disabled className="btn  btn-ghost btn-xs">Add Seat</button></>
+                                        item.Status === "Pending" ? <><button disabled className="btn  btn-ghost btn-xs">Update</button></>
                                             :
-                                            <><button className="btn text-white bg-[#060B50] hover:btn-primary btn-xs">Add Seat</button></>
+                                            <>
+                                                <Link to={`/dashboard/update/${item._id}`}>
+                                                    <button className="btn text-white bg-[#060B50] hover:btn-primary btn-xs">Update</button>
+                                                </Link>
+                                            </>
                                     }
 
 

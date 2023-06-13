@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { set, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';

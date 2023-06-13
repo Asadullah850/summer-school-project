@@ -13,7 +13,7 @@ const Dashboard = () => {
     useEffect(() => {
         axiosSecure.get(`/users/admin/${user?.email}`).then(res => {
             setRoll(res.data);
-            console.log(res.data);
+            // console.log(res.data);
         })
     }, [])
 
@@ -77,13 +77,13 @@ const Dashboard = () => {
                             userStatus == 'admin' ?
                                 <>
                                     <NavLink to={'/dashboard/admin'}>
-                                        <li className='p-2 border-2  border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>Home</li>
+                                        <li className='p-2 border-2 border-white rounded bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>Home</li>
                                     </NavLink>
                                     <NavLink to={'/dashboard/allUsers'}>
-                                        <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>All Users</li>
+                                        <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-lg'>Manage Users</li>
                                     </NavLink>
                                     <NavLink to={'/dashboard/allClasses'}>
-                                        <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>All Classes</li>
+                                        <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-lg'>Manage Classes</li>
                                     </NavLink>
 
                                 </>
@@ -97,6 +97,9 @@ const Dashboard = () => {
                                         </NavLink>
                                         <NavLink to={'/dashboard/myclasses'}>
                                             <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>My Classes</li>
+                                        </NavLink>
+                                        <NavLink to={'/dashboard/feedbackPage'}>
+                                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>Feedback</li>
                                         </NavLink>
                                     </>
                                     :

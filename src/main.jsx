@@ -10,8 +10,8 @@ import App from "./App";
 import Home from "./Container/Home/Home";
 import InstructorHome from "./Container/Dashboard/Instructor/InstructorHome";
 import Dashboard from "./Container/Dashboard/Dashboard";
-import ClassAdd from "./Container/Dashboard/ClassAdd/ClassAdd";
-import MyClasses from "./Container/Dashboard/MyClasses/MyClasses";
+import ClassAdd from "./Container/Dashboard/Instructor/ClassAdd";
+import MyClasses from "./Container/Dashboard/Instructor/MyClasses";
 import AuthProvider, { AuthContext } from "./Container/Routes/AuthProvider";
 import Register from "./Container/LoginReg/Register";
 import AdminHome from "./Container/Dashboard/Admin/AdminHome";
@@ -28,6 +28,9 @@ import MyClass from "./Container/Dashboard/User/MyClass";
 import EnrollClass from "./Container/Dashboard/User/EnrollClass";
 import PaymentHistory from "./Container/Dashboard/User/PaymentHistory";
 import PrivetRoute from "./Container/Routes/PrivetRoute";
+import Feedback from "./Container/Dashboard/Admin/Feedback";
+import FeedbackPage from "./Container/Dashboard/Instructor/FeedbackPage";
+import Update from "./Container/Dashboard/Instructor/Update";
 
 const queryClient = new QueryClient()
 
@@ -68,12 +71,24 @@ const router = createBrowserRouter([
         element: <AllClass></AllClass>
       },
       {
+        path: 'feedback/:id',
+        element: <Feedback></Feedback>
+      },
+      {
         path: 'instructor',
         element: <InstructorHome></InstructorHome>
       },
       {
+        path: 'update/:id',
+        element: <Update></Update>
+      },
+      {
         path: 'myclasses',
         element: <MyClasses></MyClasses>
+      },
+      {
+        path: 'feedbackPage',
+        element: <FeedbackPage></FeedbackPage>
       },
       {
         path: 'classAdd',
