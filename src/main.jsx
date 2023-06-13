@@ -31,6 +31,7 @@ import PrivetRoute from "./Container/Routes/PrivetRoute";
 import Feedback from "./Container/Dashboard/Admin/Feedback";
 import FeedbackPage from "./Container/Dashboard/Instructor/FeedbackPage";
 import Update from "./Container/Dashboard/Instructor/Update";
+import DeniedFeedback from "./Container/Dashboard/Admin/DeniedFeedback";
 
 const queryClient = new QueryClient()
 
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: 'update/:id',
         element: <Update></Update>
+      },
+      {
+        path: 'denied/:id',
+        element: <DeniedFeedback></DeniedFeedback>
       },
       {
         path: 'myclasses',

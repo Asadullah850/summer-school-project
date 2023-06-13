@@ -13,7 +13,7 @@ const AllUsers = () => {
     const [userData, setUserData] = useState([]);
     const [roll, setRoll] = useState('Instructor')
 
-
+// To do use tanstack query
     useEffect(() => {
         axiosSecure.get(`/allUsers`).then(res => {
             setUserData(res.data);

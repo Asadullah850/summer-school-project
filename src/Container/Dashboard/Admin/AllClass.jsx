@@ -5,44 +5,49 @@ import { FaTrash, FaUsersCog, FaUserGraduate, FaUserTie } from "react-icons/fa";
 import PageTitle from '../PageTitle';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 
 const AllClass = () => {
-
-    const [loading, setLoading] = useState(true)
     const [axiosSecure] = useAxiosSecure()
-    const [classesData, setClassesData] = useState([])
 
-    useEffect(() => {
-        axiosSecure.get(`/adminClassData`)
-            .then(res => {
-                setClassesData(res.data);
-                // console.log(res.data);
-                setLoading(false)
-            })
-    }, [])
+    const { data: classesData = [], isLoading, refetch } = useQuery(['adminClassData'], async () => {
+        const result = await axiosSecure.get(`/adminClassData`)
+        return result.data
+    })
+    // console.log(classesData);
 
     const handelClassStatusUpdate = (id) => {
         const Status = 'Confirm'
+        axiosSecure.patch(`/classStatusUpdate/${id}`, { Status })
+            .then(res => {
+                // console.log(id);
+                // console.log(res.data);
+                if (res.data.acknowledged) {
+                    toast.success('Class Active')
+                }
+                refetch()
+            })
+        // console.log(roll);
+    }
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+
+    const handelFeedback = (id) => {
+        console.log(id);
         axiosSecure.patch(`/classStatusUpdate/${id}`, { Status })
             .then(res => {
                 window.location.reload()
                 // console.log(id);
                 // console.log(res.data);
                 if (res.data.acknowledged) {
-                    toast.success('Class Active')
+                    toast.warning('Class Delete')
                 }
 
             })
-        // console.log(roll);
-    }
-
-    if (loading) {
-        return <Loading></Loading>
-    }
-
-    const handelFeedback = (id) => {
-        console.log(id);
 
     }
     // console.log(classesData);
@@ -102,7 +107,16 @@ const AllClass = () => {
 
                                 </td>
                                 <td>
-                                    <button className='hover:bg-red-800 bg-red-600 text-white btn btn-sm font-bold'>denied</button>
+                                    {
+                                        classData.Status === 'Pending' ?
+                                            <Link to={`/dashboard/denied/${classData._id}`}>
+                                                <button className='hover:bg-red-800 bg-red-600 text-white btn btn-sm font-bold'>denied</button>
+                                            </Link>
+                                            : 
+                                            <button disabled className='hover:bg-red-800 disabled bg-red-600 text-white btn btn-sm font-bold'>denied</button>
+                                        
+                                    }
+
                                 </td>
                                 <td>
                                     <Link to={`/dashboard/feedback/${classData._id}`}>
