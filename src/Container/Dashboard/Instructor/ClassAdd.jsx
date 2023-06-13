@@ -15,7 +15,7 @@ const ClassAdd = () => {
     const [seat, setSeat] = useState(0);
     const [axiosSecure] = useAxiosSecure()
 
-    console.log(inputRef.current);
+    // console.log(inputRef.current);
     const handleKeyUp = (event) => {
         const inputValue = event.target.value;
         setSeat(inputValue)

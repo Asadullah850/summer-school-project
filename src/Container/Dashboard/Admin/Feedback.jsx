@@ -4,13 +4,14 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Loading from '../../Share/Loading';
 import PageTitle from '../PageTitle';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const Feedback = () => {
     const { id } = useParams();
     // const [loading, setLoading] = useState(true)
     // const [singleClass, setSingleClass] = useState([])
     const [axiosSecure] = useAxiosSecure()
-
+// find classes or feedback
     const { data: singleClass = [], isLoading, refetch} = useQuery(['singleClass', id], async ()=>{
         const res = await axiosSecure.get(`/singleClass/${id}`)
         return res.data
@@ -24,16 +25,23 @@ const Feedback = () => {
         const feedback = form.feedback.value;
         const img = singleClass.ClassImageUrl;
         const className = singleClass.ClassName;
+        const Status = singleClass.Status;
         const feedbackData = {
-            feedback, img, className
+            feedback, img, className, Status
         }
-        console.log(feedbackData);
-        // To do feedback sending database
+        // console.log(feedbackData);
+        axiosSecure.post(`feedback`, feedbackData)
+        .then(res => {
+            // console.log(res.data);
+            if (res.data.acknowledged) {
+                toast.success('Feedback Sending Successful')
+            }
+        })
     }
+
     return (
         <div>
             <PageTitle title={'feedback'}></PageTitle>
-
             <div className="card card-compact w-full bg-base-100 shadow-xl">
                 <figure><img className='h-60 w-full' src={singleClass.ClassImageUrl} alt="Shoes" /></figure>
                 <div className="card-body">

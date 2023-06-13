@@ -5,7 +5,7 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import PageTitle from '../PageTitle';
 import { set, useForm } from 'react-hook-form';
-import useAuth from '../../Hooks/useAuth';
+import { toast } from 'react-toastify';
 
 
 const Update = () => {
@@ -26,18 +26,16 @@ const Update = () => {
         const inputData = {
             AvailableSeats, Price, Description
         }
-        console.log(inputData);
-
+        // console.log(inputData);
         axiosSecure.put(`/classUpdate/${id}`,inputData)
             .then(res => {      
                 // console.log(id);
                 console.log(res.data);
-        //         // if (res.data.acknowledged:) {
-        //         //     toast.success('Class Active')
-        //         // }
-
+                if (res.data.acknowledged) {
+                    toast.success('Class Updated')
+                }
             })
-      
+            refetch()
     }
 
     if (isLoading) {
@@ -47,7 +45,6 @@ const Update = () => {
     return (
         <div>
             <PageTitle title={'update class'}></PageTitle>
-
             <form className='text-right' onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="" className=' font-bold text-xl'> Class name*</label>
                 <input type="text" className='lg:w-[70%] border-2 p-2 rounded-md my-2 mx-10' defaultValue={singleClass.ClassName} readOnly {...register("ClassName")} />
@@ -58,7 +55,6 @@ const Update = () => {
                     type="number"
                     defaultValue={singleClass.AvailableSeats}
                     {...register("AvailableSeats")}
-
                 />
                 <br />
                 <label htmlFor="" className=' font-bold text-xl'> Price Per month</label>
