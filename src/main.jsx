@@ -32,6 +32,7 @@ import Feedback from "./Container/Dashboard/Admin/Feedback";
 import FeedbackPage from "./Container/Dashboard/Instructor/FeedbackPage";
 import Update from "./Container/Dashboard/Instructor/Update";
 import DeniedFeedback from "./Container/Dashboard/Admin/DeniedFeedback";
+import UserFeedback from "./Container/Dashboard/Admin/UserFeedback";
 
 const queryClient = new QueryClient()
 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: 'allUsers',
         element: <AllUsers></AllUsers>
+      },
+      {
+        path: 'userFeedback/:id',
+        element: <UserFeedback></UserFeedback>
       },
       {
         path: 'allClasses',

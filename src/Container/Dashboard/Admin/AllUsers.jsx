@@ -7,27 +7,19 @@ import PageTitle from '../PageTitle';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const AllUsers = () => {
-    // const [loading, setLoading] = useState(true);
     const [axiosSecure] = useAxiosSecure();
-    // const [userData, setUserData] = useState([]);
     const [roll, setRoll] = useState('Instructor')
 
-// To do use tanstack query for user load
-    // useEffect(() => {
-    //     axiosSecure.get(`/allUsers`).then(res => {
-    //         setUserData(res.data);
-    //         setLoading(false)
-    //         // console.log(res.data);
 
-    //     })
-    // }, [])
     const { data: userData = [], isLoading, refetch } = useQuery(['userData'], async () => {
         const res = await axiosSecure.get(`/allUsers`)
         return res.data
     })
 
+    // console.log(userData);
     const handelInstructor = (id) => {
         event.preventDefault()
 
@@ -39,17 +31,15 @@ const AllUsers = () => {
                     refetch()
                     
                 }
-                // acknowledged
             })
             
     }
-
     const handelAdmin = (id, admin) => {
         event.preventDefault()
         const roll = admin
         axiosSecure.patch(`/updateStatus/${id}`, { roll })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
 
                 if (res.data.acknowledged) {
                     toast.success("Update Admin")
@@ -85,11 +75,8 @@ const AllUsers = () => {
                               refetch()
                         }
                     })
-                    
                   }
           })
-       
-            
     }
     if (isLoading) {
         return <Loading></Loading>
@@ -177,7 +164,9 @@ const AllUsers = () => {
                                 </td>
                                 <td>
                                     {/* To Do feed back button not work */}
-                                    <button className="btn btn-sm "> Feedback</button>
+                                    <Link to={`/dashboard/userFeedback/${user._id}`}>
+                                        <button className="btn btn-sm "> Feedback</button>
+                                    </Link>
                                 </td>
                                 <td>
                                     <button onClick={()=>handelDelete(user._id)} className="btn btn-ghost bg-red-600"><FaTrash className=' text-white'></FaTrash></button>
