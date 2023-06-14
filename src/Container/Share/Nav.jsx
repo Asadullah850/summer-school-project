@@ -23,11 +23,11 @@ const Nav = () => {
 
     const handelLogOut = () => {
         logOut()
-        .then(() => {
-            // Sign-out successful.
-        }).catch((error) => {
-            // An error happened.
-        });
+            .then(() => {
+                // Sign-out successful.
+            }).catch((error) => {
+                // An error happened.
+            });
     }
 
     return (
@@ -38,36 +38,10 @@ const Nav = () => {
             <div className="flex-none">
                 <ul className=" flex px-1">
                     <NavLink to='/'>
-                        <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>Home</li>
+                        <li className='py-2 px-4  mx-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'>Home</li>
                     </NavLink>
-                    <NavLink to='/dashboard'>
-                        <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>Instructor</li>
-                    </NavLink>
-                    <NavLink to='/dashboard'>
-                        <li className='bg-[#A82321] mx-1 lg:hidden md:hidden rounded-md px-4 py-2 hover:bg-[#a5100e]'>All Class</li>
-                    </NavLink>
-
-
-                    {
-                        user ?
-                            <>
-                                <NavLink to={ userStatus == 'admin' ? '/dashboard/admin' : userStatus == 'Instructor' ? '/dashboard/instructor' : '/dashboard/studentClasses'}>
-                                    <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'>Dashboard</li>
-                                </NavLink>
-
-                                <li onClick={handelLogOut} className='bg-[#A82321] py-2 mx-1 rounded-md  border-none text-white px-4 cursor-pointer hover:bg-[#a5100e]'>Logout</li>
-                            </>
-                            :
-                            <>
-                                <NavLink to='/login'>
-                                <li className='bg-[#A82321] mx-1 cursor-pointer rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Login</a></li>
-                                </NavLink>
-                                <Link to='/register'>
-                                    <li className='bg-[#A82321] mx-1 rounded-md px-4 py-2 hover:bg-[#a5100e]'><a>Register</a></li>
-                                </Link>
-                            </>
-                    }
-
+                    <li className='py-2 px-4  mx-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'><a>All Class</a></li>
+                    <li className='py-2 px-4  mx-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137] '><a>Instructors</a></li>
                 </ul>
 
             </div>
@@ -75,9 +49,9 @@ const Nav = () => {
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                     <div className=" text-center rounded-full">
                         {
-                            user ? 
-                            <img src={user.photoURL} alt="" srcset="" /> :
-                            <FaUserCircle className='text-4xl '></FaUserCircle>
+                            user ?
+                                <img src={user.photoURL} alt="" srcset="" /> :
+                                <FaUserCircle className='text-4xl '></FaUserCircle>
                         }
                     </div>
                 </label>
@@ -86,13 +60,27 @@ const Nav = () => {
 
                     {
                         user ?
+                            <>
+                                <li className='py-1 px-4 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl hover:bg-[#0b2137]'>
+                                    {user?.displayName || user?.email}
+                                </li>
+                                <NavLink to={userStatus == 'admin' ? '/dashboard/admin' : userStatus == 'Instructor' ? '/dashboard/instructor' : '/dashboard/studentClasses'}>
+                                    <li className='py-2 px-4  m-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'>Dashboard</li>
+                                </NavLink>
 
-                            <li className='text-black group-hover:display'>
-                                {user?.displayName || user?.email}
-                            </li>
+                                <li onClick={handelLogOut} className='py-2 px-4  m-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'>Logout</li>
+                            </>
+
+
 
                             :
                             <>
+                                <NavLink to='/login'>
+                                    <li className='py-2 px-4  m-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'><a>Login</a></li>
+                                </NavLink>
+                                <Link to='/register'>
+                                    <li className='py-2 px-4  m-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'><a>Register</a></li>
+                                </Link>
                             </>
                     }
 

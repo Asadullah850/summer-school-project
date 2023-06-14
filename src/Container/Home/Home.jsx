@@ -7,11 +7,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./styles.css";
-import { Fade } from "react-awesome-reveal";
+import { Fade, Slide, Hinge, Zoom } from "react-awesome-reveal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import PageTitle from '../Dashboard/PageTitle';
 import Card from '../Card.jsx/Card';
+import Instructors from './Instructors';
+import Footer from '../Share/Footer';
+import Offer from './Offer';
 
 
 const Home = () => {
@@ -50,23 +53,50 @@ const Home = () => {
                     }
                 </Swiper>
             </div>
+            {/* Extra Section */}
+            <div className="mt-2">
+                <div className=" text-center">
+                <PageTitle title={'Offer Classes'}></PageTitle>
+                <div className=" divider"></div>
+                </div>
+                <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
+                    <Zoom delay={1e1} cascade damping={1e-1}>
+                        {
+                            allCard.map(item => <Offer item={item} key={item._id}></Offer>)
+                        }
+                    </Zoom>
+                </div>
+            </div>
+            {/* Popular Instructors Section */}
+            <div className="mt-2">
+                <div className=" text-center">
+                <PageTitle title={'Instructors'}></PageTitle>
+                <div className=" divider"></div>
+                </div>
+                <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
+                    <Slide delay={1e1} cascade damping={1e-1}>
+                        {
+                            allCard.map(Instructor => <Instructors Instructor={Instructor} key={Instructor._id}></Instructors>)
+                        }
+                    </Slide>
+                </div>
+            </div>
+            {/* Popular Classes Section */}
             <div className="">
                 <div className=" text-center">
                     <PageTitle title={'Popular Classes Section'}></PageTitle>
                     <div className=" divider"></div>
                 </div>
-               <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
-                <Fade>
-               {
-                    allCard.map(card => <Card item={card} key={card._id}></Card>)
-                }
-                </Fade>
-               </div>
+                <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
+                    <Fade>
+                        {
+                            allCard.map(card => <Card item={card} key={card._id}></Card>)
+                        }
+                    </Fade>
+                </div>
             </div>
-            <div className="">
-                <PageTitle title={'Instructors'}></PageTitle>
-                <div className=" divider"></div>
-            </div>
+          {/* footer */}
+          <Footer></Footer>
         </div>
     );
 };
