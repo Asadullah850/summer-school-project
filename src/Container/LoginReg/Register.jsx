@@ -29,6 +29,7 @@ const Register = () => {
             photoURL: data.url,
             roll: data.roll
         }
+            // console.log(userData);
         if (data.password !== data.ConfirmedPassword) {
             // console.log(confirmedPassword);
             return setConfirmedPassword("Password Not Equal");
@@ -98,20 +99,22 @@ const Register = () => {
                 </div>
                
             </div>
-            <div className="lg:w-1/2 md:w-1/2 w-full my-auto">
+            <div className="lg:w-1/2 md:w-1/2 w-full my-auto text-center">
                 <h1 className='text-white font-bold text-4xl font-mono max-sm:hidden '>SSDance</h1>
                 <h1 className='text-white my-4 text-lg '>Register Your Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input className='w-[70%] p-2 rounded-lg mb-2' type="text" placeholder="Full Name*" {...register("fullName", { required: true })} />
-                    {errors.FullName?.type === 'required' && <p className='text-white' role="alert">Full Name is required</p>}
+                    {errors.fullName?.type === 'required' && <p className='text-white' role="alert">Full Name is required</p>}
                     <br />
                     <input className='w-[70%] p-2 rounded-lg mb-2' type="email" placeholder="Email*" {...register("email", { required: true })} />
                     {errors.email?.type === 'required' && <p className='text-white p-0' role="alert">Email is required</p>}
                     <br />
-                    <input className='w-[70%] p-2 rounded-lg mb-2' type="url" placeholder="Image Url*" {...register("url")} />
-                    
-                    <select className='w-[70%] p-2 rounded-lg mb-2 hidden' placeholder="Email*" label="Select One" {...register("roll", { required: true })}>
-                        <option value="User">User</option>
+                    <input className='w-[70%] p-2 rounded-lg mb-2' type="url" placeholder="Image Url*" {...register("url", { required: true })} />
+                    {errors.url?.type === 'required' && <p className='text-white p-0' role="alert">Image Url is required</p>}
+                    <br />
+                    <select className='w-[70%] p-2 rounded-lg mb-2' placeholder="Email*" label="Select One" {...register("roll", { required: true })}>
+                        <option value="User">Student</option>
+                        <option value="Instructors">Instructors</option>
                     </select>
                     <br />
                     <label onClick={handelPass} className='btn btn-sm font-bold my-1 right-24 absolute' htmlFor="">
@@ -131,7 +134,7 @@ const Register = () => {
                     {errors.password?.type === 'required' && <p className='text-white p-0' role="alert">Password is required</p>}
                     {errors.password?.type === 'min' && <p className='text-white p-0' role="alert">Password is upper 6</p>}
                     {errors.password?.type === 'maxLength' && <p className='text-white p-0' role="alert">Password is less then 20</p>}
-                    {errors.password?.type === 'pattern' && <p className='text-white p-0' role="alert">Password 6 creator one capital and small word one special creator</p>}
+                    {errors.password?.type === 'pattern' && <p className='text-white p-0' role="alert">Password is upper 6 and one number, capital, small and one special creator</p>}
                     <br />
                     <label onClick={handelConPass} className='btn btn-sm font-bold my-1 right-24 absolute' htmlFor="">
                         {

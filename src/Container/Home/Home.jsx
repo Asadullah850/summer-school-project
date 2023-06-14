@@ -7,10 +7,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./styles.css";
+import { Fade } from "react-awesome-reveal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import PageTitle from '../Dashboard/PageTitle';
 import Card from '../Card.jsx/Card';
+
 
 const Home = () => {
     const [axiosSecure] = useAxiosSecure()
@@ -53,11 +55,17 @@ const Home = () => {
                     <PageTitle title={'Popular Classes Section'}></PageTitle>
                     <div className=" divider"></div>
                 </div>
-               <div className=" grid grid-cols-2 lg:grid-cols-3">
+               <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
+                <Fade>
                {
                     allCard.map(card => <Card item={card} key={card._id}></Card>)
                 }
+                </Fade>
                </div>
+            </div>
+            <div className="">
+                <PageTitle title={'Instructors'}></PageTitle>
+                <div className=" divider"></div>
             </div>
         </div>
     );
