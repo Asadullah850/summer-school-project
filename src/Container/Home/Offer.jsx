@@ -5,15 +5,18 @@ import { useSpring, animated } from '@react-spring/web'
 import styles from './styles.module.css'
 
 const Offer = ({item}) => {
-    const { ClassName, AvailableSeats, ClassImageUrl, Description, Price } = item;
+    const { ClassName, AvailableSeats,offered, ClassImageUrl, Description, Price } = item;
     const [open, toggle] = useState(false)
     const [ref, { width }] = useMeasure()
     const props = useSpring({ width: open ? width : 0 })
     return (
         <div className="card w-full bg-base-100 shadow-xl">
-            <figure><img src={ClassImageUrl} alt="Shoes" /></figure>
+            <figure><img className='h-40 rounded-md' src={ClassImageUrl} alt="Shoes" /></figure>
             <div className="card-body">
-                <h2 className="card-title">{ClassName}</h2>
+            <h2 className="card-title">
+            {ClassName}
+      <div className="badge badge-secondary">{offered}</div>
+    </h2>
                 <p>{Description.slice(0, 100)}</p>
                 <div className=" flex justify-between">
                     <p className='text-xl'>Price:TK {Price}</p>

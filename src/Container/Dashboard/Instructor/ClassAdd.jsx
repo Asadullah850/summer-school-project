@@ -32,9 +32,11 @@ const ClassAdd = () => {
         const Status = data.Status;
         const roll = data.roll;
         const Description = data.Description
+        const enrollment = 0;
         const inputData = {
-            AvailableSeats, ClassName, ClassImageUrl,Email, InstructorName, Price, Status, roll,Description
+            AvailableSeats, ClassName, ClassImageUrl,Email, InstructorName, Price, Status, roll,Description,enrollment
         }
+        // console.log(inputData);
        
         if (data.AvailableSeats == '0') {
             Swal.fire({
@@ -75,7 +77,7 @@ const ClassAdd = () => {
     }
 
     return (
-        <div className=' mt-4 '>
+        <div className=' mt-4 text-center'>
             <ToastContainer />
             <PageTitle title={'Add Class'}></PageTitle>
             <form className='text-right' onSubmit={handleSubmit(onSubmit)}>

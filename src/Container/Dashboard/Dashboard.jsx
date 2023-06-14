@@ -31,13 +31,13 @@ const Dashboard = () => {
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-center justify-center">
                     {/* Page content here */}
-                    <div className='h-screen overflow-y-scroll lg:h-[calc(100vh-32px)] bg-white w-[98%] mx-auto mt-4 rounded-2xl '>
+                    <div className='h-screen overflow-y-scroll text-center lg:h-[calc(100vh-32px)] bg-white w-[98%] mx-auto mt-4 rounded-2xl '>
                         <Outlet ></Outlet>
                     </div>
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open Menu</label>
                 </div>
 
-                <div className="drawer-side fixed h-auto lg:h-[calc(100vh-32px)] mt-8 ">
+                <div className="drawer-side text-center fixed h-auto lg:h-[calc(100vh-32px)] mt-8 ">
                     {
                         userStatus == 'admin' ?
                             <>

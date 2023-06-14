@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import './App.css'
 import Nav from './Container/Share/Nav'
-import HomeNav from './Container/Share/HomeNav'
 import { ToastContainer } from 'react-toastify'
 import { HiSun, HiMoon } from "react-icons/hi";
 import { useState } from 'react'

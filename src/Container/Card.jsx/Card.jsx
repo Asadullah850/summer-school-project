@@ -24,15 +24,22 @@ const Card = ({ item }) => {
                     </div>
                 </div>
                 <div className="card-actions justify-end">
-                    <div className={styles.container}>
-                        <div ref={ref} className={styles.main} onClick={() => toggle(true)}>
-                            <animated.div className={styles.fill} style={props}/>
-                            <animated.div className={styles.content}>
-                            <button > Booking</button> 
-                            </animated.div>
-                        </div>
-                    </div>
-                    
+                    {
+                        AvailableSeats == 0 ?
+                         <button className='text-red-700' disabled="disabled">Booking</button> 
+                        :
+                            <div className={styles.container}>
+                                <div ref={ref} className={styles.main} onClick={() => toggle(true)}>
+                                    <animated.div className={styles.fill} style={props} />
+                                    <animated.div className={styles.content}>
+                                        <button > Booking</button>
+                                    </animated.div>
+                                </div>
+                            </div>
+
+                    }
+
+
                 </div>
             </div>
         </div>

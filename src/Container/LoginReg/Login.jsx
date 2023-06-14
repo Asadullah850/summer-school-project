@@ -55,7 +55,7 @@ const Login = () => {
                     <Lottie className='h-[70vh]' animationData={groovyWalkAnimation} loop={true} />
                
             </div>
-            <div className="lg:w-1/2 md:w-1/2 w-full my-auto">
+            <div className="lg:w-1/2 md:w-1/2 w-full my-auto text-center">
                 <h1 className='text-white font-bold text-4xl font-mono'>SSDance</h1>
                 <h1 className='text-white my-4 text-lg'>Login Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>

@@ -37,7 +37,7 @@ const FeedbackPage = () => {
         <div>
             <PageTitle title={'feedback page'}></PageTitle>
             <div className="lg:flex">
-                <div className="lg:w-1/2 border-2 border-r-violet-950">
+                <div className="lg:w-2/3 border-2 border-r-violet-950">
                     <h1 className=' font-semibold font-serif text-lg'>Classes Feedback</h1>
                     <p>Total Feedback : {feedbackClasses.length}</p>
                     {/* <td>{index + 1}</td>
@@ -57,7 +57,7 @@ const FeedbackPage = () => {
                     }
 
                 </div>
-                <div className="lg:w-1/2">
+                <div className="lg:w-1/3">
                     <h1 className=' font-semibold font-serif text-lg'>Personal Feedback</h1>
                     <p>Total Feedback : {feedbackUser.length}</p>
                     {

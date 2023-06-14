@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../Share/Loading';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 const Update = () => {
     const { id } = useParams();
     const [axiosSecure] = useAxiosSecure();
+    const navigate = useNavigate()
 
 
     const { data: singleClass = [], isLoading, refetch } = useQuery(['singleClass', id], async () => {
@@ -26,13 +27,15 @@ const Update = () => {
         const inputData = {
             AvailableSeats, Price, Description
         }
-        // console.log(inputData);
-        axiosSecure.put(`/classUpdate/${id}`,inputData)
+        console.log(inputData);
+        axiosSecure.patch(`/classUpdate/${id}`,inputData)
             .then(res => {      
                 // console.log(id);
+                // console.log(inputData);
                 console.log(res.data);
                 if (res.data.acknowledged) {
                     toast.success('Class Updated')
+                    navigate('//dashboard/myclasses')
                 }
             })
             refetch()
