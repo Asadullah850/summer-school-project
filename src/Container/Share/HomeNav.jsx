@@ -4,14 +4,10 @@ import { FaHome, FaUserTie, FaBook } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 
 const HomeNav = () => {
-    // const[isActive, setActive] = useState(true)
-
-    // const handelNav =()=>{
-    //     setActive(isActive)
-    // }
+  
 
     return (
-        <div className=" h-screen max-md:hidden max-sm:hidden bg-black fixed">
+        <div className="pt-20 h-screen max-md:hidden max-sm:hidden bg-black ">
             <div className=''>
                 <div className="dropdown dropdown-right dropdown-hover ">
                     <label tabIndex={0} className="">

@@ -4,6 +4,7 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { FaHome, FaHouseUser, FaUserEdit, FaUserTie } from "react-icons/fa";
 import useAuth from '../Hooks/useAuth';
 import { ToastContainer } from 'react-toastify';
+import { GrUserManager } from "react-icons/gr";
 
 const Dashboard = () => {
     const { user, loading } = useAuth();
@@ -20,8 +21,8 @@ const Dashboard = () => {
     const userStatus = roll.roll;
 
 
-    // console.log(userStatus);
-    // console.log(isAdmin);
+    // console.log(user);
+    console.log(user);
 
     return (
         <div className=' bg-[#060b50] '>
@@ -41,8 +42,16 @@ const Dashboard = () => {
                         userStatus == 'admin' ?
                             <>
                                 <div className="avatar">
-                                    <div className=' text-9xl rounded-full bg-white'>
-                                        <FaUserTie className='p-4'></FaUserTie>
+
+                                <div className="avatar w-28 h-28 ">
+                                        <div className=' text-8xl rounded-full bg-white'>
+                                        {
+                                            user ? <img className='p-1 rounded-full' src={user.photoURL} alt="" srcset="" />
+                                            :
+                                            <GrUserManager className='p-4'></GrUserManager>
+                                        }
+                                        
+                                        </div>
                                     </div>
                                 </div>
                                 <p className=' text-xl text-white'>Admin</p>
@@ -50,19 +59,29 @@ const Dashboard = () => {
                             </>
                             : userStatus == 'Instructor' ?
                                 <>
-                                    <div className="avatar">
-                                        <div className=' text-9xl rounded-full bg-white'>
-                                            <FaUserTie className='p-4'></FaUserTie>
+                                    <div className="avatar w-28 h-28 ">
+                                        <div className=' text-8xl rounded-full bg-white'>
+                                        {
+                                            user ? <img className='p-1 rounded-full' src={user.photoURL} alt="" srcset="" />
+                                            :
+                                            <FaUserTie className=' mx-auto p-4'></FaUserTie>
+                                        }
+                                        
                                         </div>
                                     </div>
-                                    <p className=' text-xl text-white'>Instructor</p>
+                                    <p className=' font-mono text-xl text-white'>Instructor</p>
                                     <p className='px-2 text-xs text-white'>{roll.displayName}</p>
                                 </>
                                 :
                                 <>
-                                    <div className="avatar">
-                                        <div className=' text-9xl rounded-full bg-white'>
-                                            <FaUserEdit className='p-4'></FaUserEdit>
+                                <div className="avatar w-28 h-28 ">
+                                        <div className=' text-8xl rounded-full bg-white'>
+                                        {
+                                            user ? <img className='p-1 rounded-full' src={user.photoURL} alt="" srcset="" />
+                                            :
+                                            <FaUserEdit className=' mx-auto p-4'></FaUserEdit>
+                                        }
+                                        
                                         </div>
                                     </div>
                                     <p className=' text-xl text-white'>Student</p>
@@ -89,14 +108,11 @@ const Dashboard = () => {
                                 </>
                                 : userStatus == 'Instructor' ?
                                     <>
-                                        <NavLink to={'/dashboard/instructor'}>
-                                            <li className='p-2 border-2  border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black font-bold text-white text-xl'>Home</li>
+                                        <NavLink to={'/dashboard/myclasses'}>
+                                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>My Classes</li>
                                         </NavLink>
                                         <NavLink to={'/dashboard/classAdd'}>
                                             <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>Add Classes</li>
-                                        </NavLink>
-                                        <NavLink to={'/dashboard/myclasses'}>
-                                            <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>My Classes</li>
                                         </NavLink>
                                         <NavLink to={'/dashboard/feedbackPage'}>
                                             <li className='p-2 font-bold border-2 my-1 border-white rounded  bg-[#00054e] hover:bg-[#5B95A0] hover:text-black text-white text-xl'>Feedback</li>

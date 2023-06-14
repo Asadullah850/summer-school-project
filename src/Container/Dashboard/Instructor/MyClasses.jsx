@@ -49,8 +49,9 @@ const MyClasses = () => {
                                 <th>{index + 1}</th>
                                 <td>{item.ClassName}</td>
                                 <td className={item.Status == 'Pending' ? `text-red-600 font-bold` : 'font-serif'}>{item.Status}</td>
+                                {/* To do enrolled monet a kaj kora laagbe */}
                                 <td>0</td>
-                                <td>{item.AvailableSeats}</td>
+                                <td className={item.AvailableSeats == 0 ? `text-red-700 font-bold` : '' }>{item.AvailableSeats}</td>
                                 <td>
                                     {
                                         item.Status === "Pending" ? <><button disabled className="btn  btn-ghost btn-xs">Update</button></>

@@ -31,7 +31,7 @@ const Nav = () => {
     }
 
     return (
-        <div className="navbar bg-[#0A1724] text-white">
+        <div className="navbar fixed bg-[#0A1724]/50 z-10 text-white ">
             <div className="flex-1">
                 <a className="btn btn-ghost normal-case text-xl">SSDance</a>
             </div>

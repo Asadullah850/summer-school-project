@@ -5,6 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import App from "./App";
 import Home from "./Container/Home/Home";
@@ -35,7 +36,7 @@ import DeniedFeedback from "./Container/Dashboard/Admin/DeniedFeedback";
 import UserFeedback from "./Container/Dashboard/Admin/UserFeedback";
 
 const queryClient = new QueryClient()
-
+// To to make a logout button
 
 const router = createBrowserRouter([
   {
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'instructor',
-        element: <InstructorHome></InstructorHome>
+        element: <MyClasses></MyClasses>
       },
       {
         path: 'update/:id',
@@ -116,7 +117,7 @@ const router = createBrowserRouter([
         path: 'payment',
         element: <PaymentHistory></PaymentHistory>
       },
-     
+
     ]
   },
 ]);
@@ -126,7 +127,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <HelmetProvider>
+          <RouterProvider router={router} />
+        </HelmetProvider>
       </QueryClientProvider>
     </AuthProvider>
   </React.StrictMode>

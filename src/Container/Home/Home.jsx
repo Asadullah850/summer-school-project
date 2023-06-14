@@ -1,24 +1,63 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { HiSun, HiMoon } from "react-icons/hi";
+import useAxiosSecure from '../Hooks/useAxiosSecure';
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "./styles.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper";
+import PageTitle from '../Dashboard/PageTitle';
+import Card from '../Card.jsx/Card';
 
 const Home = () => {
-    const [light, setLight] = useState(true)
-    const handelTheme = (light) => {
-        setLight(light)
-        console.log(light);
-    }
+    const [axiosSecure] = useAxiosSecure()
+
+    const { data: allCard = [], isLoading, refetch, error } = useQuery(['allCard'], async () => {
+        const res = await axiosSecure.get('/allCard');
+        console.log(res.data);
+        return res.data;
+    });
 
     return (
         <div className="">
-            {/* To DO LIst Hamlet  */}
-            {/* To DO LIst Title */}
-            <button className=' absolute top-2 rounded-full  p-1 text-white left-28 ' onClick={() => handelTheme(!light)} >
-                {
-                    light ? <HiMoon className='text-4xl '></HiMoon> : <HiSun className='text-4xl '></HiSun>
+            <div className="">
+                <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    navigation={true}
+                    modules={[Autoplay, Pagination, Navigation]}
+                    className="mySwiper"
+                >
+                    {
+                        allCard.map(item => <SwiperSlide className='h-[450px]'>
+
+                            <img className='w-full h-[450px]' src={item.ClassImageUrl} alt="" srcset="" />
+                            <p className='relative bottom-20 bg-black/70 text-xl font-bold w-[60%] mx-auto text-white p-2'>{item.ClassName}</p>
+
+                        </SwiperSlide>)
+                    }
+                </Swiper>
+            </div>
+            <div className="">
+                <div className=" text-center">
+                    <PageTitle title={'Popular Classes Section'}></PageTitle>
+                    <div className=" divider"></div>
+                </div>
+               <div className=" grid grid-cols-2 lg:grid-cols-3">
+               {
+                    allCard.map(card => <Card item={card} key={card._id}></Card>)
                 }
-            </button>
-            <div className={light ? `lg:ml-20 md:mx-0 mx-0` : `lg:ml-20 md:mx-0 mx-0 bg-blue-950 text-white`}>
-                home
+               </div>
             </div>
         </div>
     );
