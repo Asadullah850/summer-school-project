@@ -4,6 +4,7 @@ import Nav from './Container/Share/Nav'
 import { ToastContainer } from 'react-toastify'
 import { HiSun, HiMoon } from "react-icons/hi";
 import { useState } from 'react'
+import Footer from './Container/Share/Footer';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <ToastContainer />
       <Nav></Nav>
       <Outlet></Outlet>
+      <Footer></Footer>
     </div>
   )
 }

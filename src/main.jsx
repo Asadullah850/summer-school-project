@@ -23,6 +23,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+
 import Login from "./Container/LoginReg/Login";
 import AllClass from "./Container/Dashboard/Admin/AllClass";
 import MyClass from "./Container/Dashboard/User/MyClass";
@@ -34,6 +35,7 @@ import FeedbackPage from "./Container/Dashboard/Instructor/FeedbackPage";
 import Update from "./Container/Dashboard/Instructor/Update";
 import DeniedFeedback from "./Container/Dashboard/Admin/DeniedFeedback";
 import UserFeedback from "./Container/Dashboard/Admin/UserFeedback";
+import Allclass from "./Container/AllClasses/Allclass";
 
 const queryClient = new QueryClient()
 // To to make a logout button
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>
+      },
+      {
+        path: '/allclass',
+        element: <Allclass></Allclass>
       },
     ],
   },

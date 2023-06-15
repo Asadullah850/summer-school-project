@@ -117,8 +117,6 @@ const Home = () => {
                     </Zoom>
                 </div>
             </div>
-            {/* footer */}
-            <Footer></Footer>
         </div>
     );
 };
