@@ -10,17 +10,19 @@ const Dashboard = () => {
     const { user, loading } = useAuth();
     const [axiosSecure] = useAxiosSecure()
     const [roll, setRoll] = useState([]);
+    // console.log(user);
 
     useEffect(() => {
         axiosSecure.get(`/users/admin/${user?.email}`).then(res => {
             setRoll(res.data);
-            // console.log(res.data);
+            console.log(res.data);
         })
     }, [])
-
     const userStatus = roll.roll;
 
-
+if (loading) {
+    <p>Loading............</p>
+}
     // console.log(user);
     console.log(user);
 
@@ -38,6 +40,60 @@ const Dashboard = () => {
                 </div>
 
                 <div className="drawer-side text-center fixed h-auto lg:h-[calc(100vh-32px)] mt-8 ">
+                    {/* {
+                        userStatus == 'admin' ?
+                            <>
+                                <div className="avatar">
+
+                                <div className="avatar w-28 h-28 ">
+                                        <div className=' text-8xl rounded-full bg-white'>
+                                        {
+                                            user ? <img className='p-1 rounded-full' src={user.photoURL} alt="" srcset="" />
+                                            :
+                                            <GrUserManager className='p-4'></GrUserManager>
+                                        }
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className=' text-xl text-white'>Admin</p>
+                                <p className='px-2 text-xs text-white'>{roll.displayName}</p>
+                            </>
+                            : userStatus == 'Instructor' ?
+                                <>
+                                    <div className="avatar w-28 h-28 ">
+                                        <div className=' text-8xl rounded-full bg-white'>
+                                        {
+                                            user ? <img className='p-1 rounded-full' src={user.photoURL} alt="" srcset="" />
+                                            :
+                                            <FaUserTie className=' mx-auto p-4'></FaUserTie>
+                                        }
+                                        
+                                        </div>
+                                    </div>
+                                    <p className=' font-mono text-xl text-white'>Instructor</p>
+                                    <p className='px-2 text-xs text-white'>{roll.displayName}</p>
+                                </>
+                                :
+                                <>
+                                <div className="avatar w-28 h-28 ">
+                                        <div className=' text-8xl rounded-full bg-white'>
+                                        {
+                                            user ? <img className='p-1 rounded-full' src={user.photoURL} alt="" srcset="" />
+                                            :
+                                            <FaUserEdit className=' mx-auto p-4'></FaUserEdit>
+                                        }
+                                        
+                                        </div>
+                                    </div>
+                                    <p className=' text-xl text-white'>Student</p>
+                                    <p className='px-2 text-xs text-white'>Name: {roll.displayName}</p>
+                                </>
+                    } */}
+
+                    <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                    <ul className="menu py-4 pl-4 pr-0 h-full bg-[#060b50] text-center text-base-content">
+
                     {
                         userStatus == 'admin' ?
                             <>
@@ -88,9 +144,6 @@ const Dashboard = () => {
                                     <p className='px-2 text-xs text-white'>Name: {roll.displayName}</p>
                                 </>
                     }
-
-                    <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu py-4 pl-4 pr-0 h-full bg-[#060b50]  text-base-content">
                         {/* Sidebar content here */}
                         {
                             userStatus == 'admin' ?

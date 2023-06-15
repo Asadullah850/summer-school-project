@@ -2,18 +2,17 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import GoogleButton from '../Share/GoogleButton';
 import { AuthContext } from '../Routes/AuthProvider';
-import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import { updateProfile } from 'firebase/auth';
 import Lottie from "lottie-react";
 import groovyWalkAnimation from "../../assets/144103-e-v-e.json";
+import { FcGoogle } from "react-icons/fc";
 
 
 const Login = () => {
     const [seePass, setSeePass] = useState(false);
-    const { handelLogin } = useContext(AuthContext)
+    const { user, handelLogin, googleLogin } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
@@ -25,6 +24,7 @@ const Login = () => {
             // Signed in 
             const user = userCredential.user;
             const getUser = userCredential.user;
+            toast.success('Login successful')
             // console.log(getUser);
             navigate('/')
 
@@ -35,8 +35,21 @@ const Login = () => {
                 // ..
             });
         // console.log(userData, password)
-
         reset()
+    }
+    const googleSingIn=()=>{
+        googleLogin().then(() => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            // ...
+            navigate('/')
+            toast.success('Login successful')
+          }).catch((error) => {
+            // Handle Errors here.
+            const errorMessage = error.message;
+            // ...
+          });
+
+        
     };
 
     const handelPass = () => {
@@ -45,7 +58,7 @@ const Login = () => {
     }
     return (
         // 9B2A99 8F27A1
-        <div className='lg:flex md:flex w-[99%] mx-auto bg-gradient-to-r from-[#9B2A99] to-[#8F27A1]'>
+        <div className='text-center lg:flex md:flex w-[99%] mx-auto bg-gradient-to-r from-[#9B2A99] to-[#8F27A1]'>
             <div className="lg:w-1/2 md:w-1/2 w-full bg-white rounded-br-[50%]">
                 <div className="bg-[#9B2A99] w-20 h-20 mx-14 mt-10 rounded-bl-full rounded-tl-full rounded-br-full">
                 </div>
@@ -76,6 +89,7 @@ const Login = () => {
                         maxLength: 20,
                         pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6}/
                     })} />
+                    {/* To do pass ta remove koro  */}
                     <p>123@Aa</p>
                     {errors.password?.type === 'required' && <p className='text-white p-0' role="alert">Password is required</p>}
                     {errors.password?.type === 'min' && <p className='text-white p-0' role="alert">Password is upper 6</p>}
@@ -87,7 +101,10 @@ const Login = () => {
                     <br />
                     <input className='w-[40%] btn bg-[#95289D] text-white hover:bg-[#720d79]' type="submit" value={'Login'} />
                 </form>
-                <GoogleButton></GoogleButton >
+                <button onClick={googleSingIn}>
+                    <FcGoogle className='m-2 text-4xl border-2 rounded-full'></FcGoogle>
+                </button>
+                {/* <GoogleButton></GoogleButton > */}
             </div>
         </div>
     );

@@ -23,12 +23,12 @@ const Home = () => {
 
     const { data: allCard = [], isLoading, refetch, error } = useQuery(['allCard'], async () => {
         const res = await axiosSecure.get('/allCard');
-        console.log(res.data);
+        // console.log(res.data);
         return res.data;
     });
     const { data: offered = [], } = useQuery(['offered'], async () => {
         const res = await axiosSecure.get('/offeredCard');
-        console.log(res.data);
+        // console.log(res.data);
         return res.data;
     });
     

@@ -52,7 +52,6 @@ const Register = () => {
                   
             // console.log(user);
             // ...
-            navigate('/')
             axiosSecure.post(`/userAdd`,userData).then(res => {
                 // console.log(res);
                 if (res.data.acknowledged) {
@@ -85,7 +84,7 @@ const Register = () => {
     }
     return (
         // 9B2A99 8F27A1
-        <div className='lg:flex md:flex w-[99%] mx-auto  lg:h-screen bg-gradient-to-r from-[#9B2A99] to-[#8F27A1]'>
+        <div className='text-center lg:flex md:flex w-[99%] mx-auto  lg:h-screen bg-gradient-to-r from-[#9B2A99] to-[#8F27A1]'>
             <div className="lg:w-1/2 md:w-1/2 w-full bg-white rounded-br-[50%]">
                 <div className="bg-[#9B2A99] w-32 h-32 mx-14 mt-10 rounded-bl-full rounded-tl-full rounded-br-full">
                 </div>

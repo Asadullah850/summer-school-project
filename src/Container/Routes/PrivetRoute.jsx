@@ -6,6 +6,7 @@ import Loading from '../Share/Loading';
 const PrivetRoute = ({children}) => {
     const { user, loading } = useContext(AuthContext);
     const location = useLocation()
+    // console.log('children',user);
 
     if (loading){
         return <p>Loading ...............</p>

@@ -70,12 +70,9 @@ const Nav = () => {
 
                                 <li onClick={handelLogOut} className='py-2 px-4  m-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'>Logout</li>
                             </>
-
-
-
                             :
                             <>
-                                <NavLink to='/login'>
+                                <NavLink to='/login' >
                                     <li className='py-2 px-4  m-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'><a>Login</a></li>
                                 </NavLink>
                                 <Link to='/register'>
