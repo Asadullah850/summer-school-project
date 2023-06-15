@@ -16,10 +16,12 @@ import Instructors from './Instructors';
 import Footer from '../Share/Footer';
 import Offer from './Offer';
 import Loading from '../Share/Loading';
+import useAuth from '../Hooks/useAuth';
 
 
 const Home = () => {
-    const [axiosSecure] = useAxiosSecure()
+    const [axiosSecure] = useAxiosSecure();
+    const { user } = useAuth()
 
     const { data: allCard = [], isLoading, refetch, error } = useQuery(['allCard'], async () => {
         const res = await axiosSecure.get('/allCard');
@@ -28,6 +30,12 @@ const Home = () => {
     });
     const { data: offered = [], } = useQuery(['offered'], async () => {
         const res = await axiosSecure.get('/offeredCard');
+        // console.log(res.data);
+        return res.data
+    });
+
+    const { data: userInstructor = [], } = useQuery(['userInstructor'], async () => {
+        const res = await axiosSecure.get('/userInstructor');
         // console.log(res.data);
         return res.data;
     });
@@ -64,34 +72,7 @@ const Home = () => {
                     }
                 </Swiper>
             </div>
-            {/* Extra Section */}
-            <div className="mt-2">
-                <div className=" text-center">
-                    <PageTitle title={'Offer Classes'}></PageTitle>
-                    <div className=" divider"></div>
-                </div>
-                <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
-                    <Zoom delay={1e1} cascade damping={1e-1}>
-                        {
-                            offered.slice(0, 6).map(item => <Offer item={item} key={item._id}></Offer>)
-                        }
-                    </Zoom>
-                </div>
-            </div>
-            {/* Popular Instructors Section */}
-            <div className="mt-2">
-                <div className=" text-center my-2">
-                    <PageTitle title={'Instructors'}></PageTitle>
-                    <div className=" divider"></div>
-                </div>
-                <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
-                    <Slide delay={1e1} cascade damping={1e-1}>
-                        {
-                            allCard.slice(0, 6).map(Instructor => <Instructors Instructor={Instructor} key={Instructor._id}></Instructors>)
-                        }
-                    </Slide>
-                </div>
-            </div>
+
             {/* Popular Classes Section */}
             <div className="">
                 <div className=" text-center">
@@ -104,6 +85,36 @@ const Home = () => {
                             allCard.slice(0, 6).map(card => <Card item={card} key={card._id}></Card>)
                         }
                     </Fade>
+                </div>
+            </div>
+            
+            {/* Popular Instructors Section */}
+            <div className="mt-2">
+                <div className=" text-center my-2">
+                    <PageTitle title={'Instructors'}></PageTitle>
+                    <div className=" divider"></div>
+                </div>
+                <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
+                    <Slide delay={1e1} cascade damping={1e-1}>
+                        {
+                            userInstructor.slice(0, 6).map(Instructor => <Instructors  Instructor={Instructor} key={Instructor._id}></Instructors>)
+                        }
+                    </Slide>
+                </div>
+            </div>
+        
+            {/* Extra Section */}
+            <div className="mt-2">
+                <div className=" text-center">
+                    <PageTitle title={'Offer Classes'}></PageTitle>
+                    <div className=" divider"></div>
+                </div>
+                <div className=" grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
+                    <Zoom delay={1e1} cascade damping={1e-1}>
+                        {
+                            offered.slice(0, 6).map(item => <Offer item={item} key={item._id}></Offer>)
+                        }
+                    </Zoom>
                 </div>
             </div>
             {/* footer */}

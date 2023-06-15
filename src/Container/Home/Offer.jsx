@@ -5,13 +5,43 @@ import { useSpring, animated } from '@react-spring/web'
 import styles from './styles.module.css'
 import useAuth from '../Hooks/useAuth';
 import { Link } from 'react-router-dom';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const Offer = ({item}) => {
-    const { ClassName, AvailableSeats,offered, ClassImageUrl, Description, Price } = item;
+    const { ClassName, offered, AvailableSeats,InstructorName, ClassImageUrl,Email, Description, Price, _id,enrollment } = item;
     const [open, toggle] = useState(false)
     const [ref, { width }] = useMeasure()
     const props = useSpring({ width: open ? width : 0 })
-    const { user } = useAuth()
+    const { user, loading } = useAuth();
+    const [ axiosSecure ] = useAxiosSecure();
+
+    
+console.log(user);
+    const userEmail = user?.email;
+    const userName = user?.displayName;
+
+    const bookingData = {
+        ClassName, AvailableSeats, ClassImageUrl, Price,InstructorName,Email,enrollment,userEmail, userName, productId: _id
+    }
+
+    const handelBooking = (id) => {
+
+        const userEmail = user?.email;
+        const userName = user?.displayName;
+        console.log(id);
+        const bookingData = {
+            ClassName, AvailableSeats, ClassImageUrl, Price,InstructorName,Email,enrollment,userEmail, userName, productId: _id
+        }
+        console.log(bookingData);
+        axiosSecure.post('/booking', bookingData)
+            .then(data => {
+                if (data.data.acknowledged) {
+                    toast.success("Class Booking Successfully")
+                }
+            }).catch((error) => {
+                toast.error(error.message)
+            })
+    }
     return (
         <div className="card w-full bg-base-100 shadow-xl">
             <figure><img className='h-40 rounded-md' src={ClassImageUrl} alt="Shoes" /></figure>

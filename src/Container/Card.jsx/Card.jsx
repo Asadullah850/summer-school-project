@@ -21,7 +21,7 @@ const Card = ({ item }) => {
 
         const userEmail = user.email;
         const userName = user.displayName;
-        console.log(id);
+        // console.log(id);
         const bookingData = {
             ClassName, AvailableSeats, ClassImageUrl, Price,InstructorName,Email,enrollment,userEmail, userName, productId: _id
         }
@@ -37,7 +37,7 @@ const Card = ({ item }) => {
     }
     return (
         <div className="card w-full bg-base-100 shadow-xl">
-            <figure><img src={ClassImageUrl} alt="Shoes" /></figure>
+            <figure className='h-60'><img className='h-60 rounded-md' src={ClassImageUrl} alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title">{ClassName}</h2>
                 <p>{Description.slice(0, 100)}</p>
