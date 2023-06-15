@@ -1,9 +1,10 @@
 import React from 'react';
+import PageTitle from '../PageTitle';
 
 const PaymentHistory = () => {
     return (
         <div>
-            Payment History
+            <PageTitle title={'Payment History'}></PageTitle>
         </div>
     );
 };

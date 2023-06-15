@@ -6,7 +6,7 @@ const UseClassData = () => {
         // TO Do akhane email dea card fech / axios kora lagbe 77-4
         queryKey: ['classes'],
         queryFn: async ()=>{
-            const response  = await fetch(`http://localhost:5000/`)
+            const response  = await fetch(`https://assingment12-server-eight.vercel.app/`)
             return response.json();
         },
       })

@@ -89,9 +89,7 @@ const Login = () => {
                         maxLength: 20,
                         pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6}/
                     })} />
-                    {/* To do pass ta remove koro  */}
-                    <p>123@Aa</p>
-                    {errors.password?.type === 'required' && <p className='text-white p-0' role="alert">Password is required</p>}
+                    {/* To do pass ta remove koro  */}                    {errors.password?.type === 'required' && <p className='text-white p-0' role="alert">Password is required</p>}
                     {errors.password?.type === 'min' && <p className='text-white p-0' role="alert">Password is upper 6</p>}
                     {errors.password?.type === 'maxLength' && <p className='text-white p-0' role="alert">Password is less then 20</p>}
                     {errors.password?.type === 'pattern' && <p className='text-white p-0' role="alert">Password 6 creator one capital and small word one special creator</p>}

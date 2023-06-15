@@ -36,6 +36,7 @@ import Update from "./Container/Dashboard/Instructor/Update";
 import DeniedFeedback from "./Container/Dashboard/Admin/DeniedFeedback";
 import UserFeedback from "./Container/Dashboard/Admin/UserFeedback";
 import Allclass from "./Container/AllClasses/Allclass";
+import InstructorsPage from "./Container/Istrucroes/InstructorsPage";
 
 const queryClient = new QueryClient()
 // To to make a logout button
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>
+      },
+      {
+        path: '/instructors',
+        element: <InstructorsPage></InstructorsPage>
       },
       {
         path: '/allclass',

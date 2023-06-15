@@ -43,7 +43,11 @@ const Nav = () => {
                     <NavLink to={'/allclass'}>
                         <li className='py-2 px-4  mx-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137]'><a>All Class</a></li>
                     </NavLink>
+                    {/* instructors */}
+                    <NavLink to={'/instructors'}>
                     <li className='py-2 px-4  mx-1 border-2 bg-[#0A1724] text-white rounded-r-2xl rounded-bl-2xl cursor-pointer hover:bg-[#0b2137] '><a>Instructors</a></li>
+                    </NavLink>
+                    
                 </ul>
 
             </div>

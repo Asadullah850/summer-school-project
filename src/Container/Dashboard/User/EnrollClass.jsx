@@ -1,9 +1,10 @@
 import React from 'react';
+import PageTitle from '../PageTitle';
 
 const EnrollClass = () => {
     return (
         <div>
-            je gula payment hoice oi gula
+            <PageTitle title={'Enroll Classes'}></PageTitle>
         </div>
     );
 };
