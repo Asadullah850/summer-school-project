@@ -101,7 +101,7 @@ const Register = () => {
             <div className="lg:w-1/2 md:w-1/2 w-full my-auto text-center">
                 <h1 className='text-white font-bold text-4xl font-mono max-sm:hidden '>SSDance</h1>
                 <h1 className='text-white my-4 text-lg '>Register Your Account</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form className='mb-2' onSubmit={handleSubmit(onSubmit)}>
                     <input className='w-[70%] p-2 rounded-lg mb-2' type="text" placeholder="Full Name*" {...register("fullName", { required: true })} />
                     {errors.fullName?.type === 'required' && <p className='text-white' role="alert">Full Name is required</p>}
                     <br />
